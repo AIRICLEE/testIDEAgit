@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ericpractice.springbootcrud02.dao.UserMapper">
+
+<select id="getUserByAge" resultType="com.ericpractice.springbootcrud02.bean.User">
+    SELECT name,age,id FROM user WHERE age=#{age}
+</select>
+
+<select id="getUserByAgeName" resultType="com.ericpractice.springbootcrud02.bean.User">
+        SELECT name,age,id FROM user
+    <where>
+            <if test="name!=null and name!='' ">
+                 name=#{name}
+            </if>
+
+            <if test="age!=null">
+                and age=#{age}
+            </if>
+
+    </where>
+</select>
+
+<insert id="insertUser" parameterType="com.ericpractice.springbootcrud02.bean.User">
+    INSERT INTO user(name,age) VALUE (#{name},#{age})
+</insert>
+
+<update id="updateUser" parameterType="com.ericpractice.springbootcrud02.bean.User">
+    UPDATE User SET
+                    user.name=#{name},
+                    user.age=#{age}
+    WHERE user.id=#{id}
+</update>
+
+<delete id="deleteUserById" parameterType="com.ericpractice.springbootcrud02.bean.User">
+    DELETE FROM user WHERE id=#{id}
+</delete>
+
+
+</mapper>
